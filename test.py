@@ -6,4 +6,5 @@
 # # permutations의 경우 뒤에 숫자를 적지 않으면 list의 크기로 순열을 구한다.
 # print(list(cm))
 
-
+s = "abcd"
+print(s.index('d'))
