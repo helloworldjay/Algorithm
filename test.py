@@ -5,6 +5,4 @@
 # # 그 값들은 itertools 형태로 나오므로 list로 변환해주어야 한다.(map 같이)
 # # permutations의 경우 뒤에 숫자를 적지 않으면 list의 크기로 순열을 구한다.
 # print(list(cm))
-
-s = "abcd"
-print(s.index('d'))
+# if가 참이면 elif는 작동안한다.
