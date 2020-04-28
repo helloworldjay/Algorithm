@@ -1,13 +1,31 @@
-# 첫번째 요소부터 자기보다 작은 수가 나올 때까지 검색하여 idx 차이를 저장
 
+
+# 효율성 실패, 시간 초과
+# def solution(prices):
+#     from collections import deque
+#     result = [] # 기록 입력
+#     ra = result.append
+#     for i in range(len(prices)-1):
+#         sec = 0
+#         temp = deque(prices[i+1:])
+#         while temp:
+#             sec += 1
+#             if temp.popleft() < prices[i]:
+#                 break
+#         ra(sec)
+#     ra(0)
+#     return result
+
+
+
+# 속도 이슈 발생 O(n^2) 라서
 def solution(prices):
-    from collections import deque
-    prices = deque(prices)
-    queue = []
-    for i in range(len(prices)):
-        for j in range(i, len(prices)):
-            if prices[i] > prices[j] :
-                queue.append(j-i)
-            elif j == len(prices)-1:
-                queue.append(j-i)
-    return queue
+    result = [[0 for i in range(len(prices))]] # 결과물 input
+    for i in range(len(prices)-1): # 마지막 항 제거
+        for j in prices[i+1:]:
+            result[i] += 1
+            if j < prices[i]:
+                break
+        
+    
+    return result
