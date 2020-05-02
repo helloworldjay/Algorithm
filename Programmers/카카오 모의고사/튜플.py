@@ -1,12 +1,13 @@
-from collections import deque
 def solution(s):
-    l = []
-    c = 1
-    for i in s[c:-1]:
-        temp = []
-        if i == "{":
-             for j in range(i+1,len(s)):
-                 if int(s[i+j])
-    return 
+    a = s[2:-2].split('},{')
+    for i in range(len(a)):
+        a[i] = list(map(int, a[i].split(',')))
+    a.sort(key = len)
+    result = []
+    for i in range(len(a)):
+        for j in range(len(a[i])):
+            if a[i][j] not in result:
+                result.append(a[i][j])
+    return result
 
-print(solution("{{2},{2,1},{2,1,3},{2,1,3,4}}"))
+print(solution("{{4,2,3},{3},{2,3,4,1},{2,3}}"))
