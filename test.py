@@ -17,21 +17,21 @@
 # print(max(result))
 
 # SW 마에스트로 2차 2번 문제
-from sys import stdin
-n, m = map(int, stdin.readline().strip().split()) # n명 m개의 관계
-p = [[]]
-pa = p.append
-for i in range(n): # 1번부터 n번까지 사람들의 능력치
-    x, y = map(int, stdin.readline().split())
-    pa([x,y])
-r = [[] for i in range(n+1)] # 관계 리스트
-for i in range(m):
-    m1, m2 = map(int, stdin.readline().split())
-    if m1 != m2:
-        r[m1].extend([m2])
-        r[m2].extend([m1])
-t = [] # 팀 리스트
-ta = t.append
+# from sys import stdin
+# n, m = map(int, stdin.readline().strip().split()) # n명 m개의 관계
+# p = [[]]
+# pa = p.append
+# for i in range(n): # 1번부터 n번까지 사람들의 능력치
+#     x, y = map(int, stdin.readline().split())
+#     pa([x,y])
+# r = [[] for i in range(n+1)] # 관계 리스트
+# for i in range(m):
+#     m1, m2 = map(int, stdin.readline().split())
+#     if m1 != m2:
+#         r[m1].extend([m2])
+#         r[m2].extend([m1])
+# t = [] # 팀 리스트
+# ta = t.append
 # DFS로 팀 나누기
 
 
@@ -63,3 +63,5 @@ ta = t.append
 #             cnt += 1
 #     ra(cnt)
 # print('\n'.join(map(str,result)))
+
+print(eval("2+3".replace("+","")))
