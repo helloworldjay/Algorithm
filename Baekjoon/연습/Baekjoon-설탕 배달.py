@@ -1,15 +1,23 @@
 # 2839번
-from sys import stdin
-def minnum(total) :
-    n = 0 # 개수
-    if (total % 5) % 3 == 0 :
-        n += (total//5) + ((total%5)//3)
-        return n
-    elif (total % 3) == 0 :
-        n += total//3
-        return n
-    else : 
-        return -1
+n = int(input())
+n5 = n // 5
+checker = 0
+while n5 > -1:
+    if (n - n5*5) % 3 == 0:
+        checker = n5 + (n - n5*5) // 3
+        break
+    else :
+        n5 -= 1
+print(checker) if checker else print(-1)
 
-tt = int(stdin.readline())
-print(minnum(tt))
+
+
+# 이렇게 하면 5 1개 3 2개 이런 경우가 안됨
+# n = int(input())
+# a = n // 5  
+# b = n % 5 
+# if b % 3 == 0:
+#     print(a + b//3)
+# else : 
+#     print(n//3) if n % 3 == 0 else print(-1)
+    
