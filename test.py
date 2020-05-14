@@ -1,3 +1,2 @@
-l = [1,2,3,2,"3"]
-ll = set(l)
-print(ll)
+n = list(range(10))
+print(n)
