@@ -1,0 +1,2 @@
+1. 종만북 7장 거듭제곱 구하기에서 기저조건이 n == 1일때는 재귀 깊이 오류가 발생하는 이유  https://jayb-log.tistory.com/manage/newpost/?type=post&returnURL=%2Fmanage%2Fposts%2F
+

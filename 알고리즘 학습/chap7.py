@@ -102,6 +102,7 @@ def quick_sort(arr):
                 # 두 값을 바꿔준다.
                 arr[low], arr[high] = arr[high], arr[low]
                 low, high = low + 1, high -1 
+        # ?
         return low
 
     return sort(0, len(arr)-1)
