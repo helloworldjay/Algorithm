@@ -26,14 +26,13 @@
 
 #     return planA
 
-
 def solution(land):
-    num1, num2, num3, num4 = 0, 0, 0, 0
-    num1 += land[0].pop(land[0][0])
-    num1 += max(land[1])
-
-    return
-
+    for i in range(1, len(land)):
+        for j in range(4):
+            land[i][j] += max(land[i-1][:j]+ land[i-1][j+1:])
+            # max(land[i][(j+1)%4],land[i][(j+2)%4],land[i][(j+3)%4])
+            # 도 가능한 표현이지만 j의 범위가 커지면 힘들어진다.
+    return max(land[len(land)-1])
 print(solution([[1,2,3,5],[5,6,7,8],[4,3,2,1]]))
 
 
