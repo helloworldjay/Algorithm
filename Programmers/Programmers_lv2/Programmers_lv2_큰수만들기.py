@@ -1,28 +1,52 @@
-# 왜 에러가 나는지 모르겠다.
 def solution(number, k):
-    result_len = len(number) - k
-    max_idx = 0
-    result = []
-    # 과정을 반복한다.
-    # 커서의 위치 인덱스
-    idx = 0
-    while True :
-        # number[idx:idx+k] 중에서 최대값 인덱스 찾기
-        # 부분 최대값의 인덱스는 max_idx
-        max_idx = number[idx:idx+k+1].find(max(number[idx:idx+k+1]))
-        # idx += (max_idx + 1)
-        idx += max_idx + 1
-        if idx == len(number) - k:
-            return number[:idx]
-        # 최대값만 result에 담는다.
-        result += number[idx-1]
-        # k -= max_idx
-        k -= max_idx if max_idx != 0 else 1
-        # k == 0 이면 result += number[idx:]
-        if k <= 0:
-            result += number[idx:]
-            break
-    return ''.join(result) if len(result) == result_len else ''.join(result[:-(len(result)-result_len)])
+    stack = ["0"]
+    # 처음 빈문자를 넣었으므로 0을 지우기 위해 k를 하나 증가시킨다.
+    k += 1
+    for i in range(len(number)):
+        if k == 0:
+            stack.append(number[i])
+            continue
+        while k > 0:
+            # 비어있지 않으면 number[i]로 계속 비교해 나간다. stack의 마지막 값보다
+            # number[i]가 더 크면 stack[-1]을 제거해 나간다.
+            if number[i] > stack[-1]:
+                stack.pop()
+                k -= 1
+            if len(stack) == 0 or number[i] <= stack[-1] or k==0 :
+                stack.append(number[i])
+                break
+    if k != 0:
+        stack = stack[:-k]
+    return ''.join(stack)
+print(solution("999", 2))
+
+
+
+# # 왜 에러가 나는지 모르겠다.
+# def solution(number, k):
+#     result_len = len(number) - k
+#     max_idx = 0
+#     result = []
+#     # 과정을 반복한다.
+#     # 커서의 위치 인덱스
+#     idx = 0
+#     while True :
+#         # number[idx:idx+k] 중에서 최대값 인덱스 찾기
+#         # 부분 최대값의 인덱스는 max_idx
+#         max_idx = number[idx:idx+k+1].find(max(number[idx:idx+k+1]))
+#         # idx += (max_idx + 1)
+#         idx += max_idx + 1
+#         if idx == len(number) - k:
+#             return number[:idx]
+#         # 최대값만 result에 담는다.
+#         result += number[idx-1]
+#         # k -= max_idx
+#         k -= max_idx if max_idx != 0 else 1
+#         # k == 0 이면 result += number[idx:]
+#         if k <= 0:
+#             result += number[idx:]
+#             break
+#     return ''.join(result) if len(result) == result_len else ''.join(result[:-(len(result)-result_len)])
 
 #지원
 # def solution(number, k):
@@ -68,7 +92,7 @@ def solution(number, k):
 #             number = number[:len(number)-k]
 #             break
 #     return number
-print(solution("199999",2))
+
 
 
 
