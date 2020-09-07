@@ -1,37 +1,31 @@
-import heapq
 
 def solution(food_times, k):
-    # 0이 아닌 최소값
-    m = 100000000
-    # 0이 아닌 요소의 길이
-    N = 0
-    for i in range(len(food_times)):
-        if food_times[i] != 0:
-            N += 1
-            if food_times[i] < m:
-                m = food_times[i]
-    q, r = divmod(k, N)
-    idx = 0
-    # 최소값이 몫보다 크면 나머지만 생각하면 된다.
-    if m >= q:
+    # 길이, 최소값 정의
+    while True:
+        N, m = 0, 100000001
         for i in range(len(food_times)):
-            food_times[i] -= q
             if food_times[i] != 0:
-                r -= 1
-                if r == 0:
-                    return i + 1
-    else :
-        q -= m
-        r += q*N
-        while True:
-            food_times[idx] -= m
-            if food_times[idx] == 0:
-                N -= 1
-            elif food_times[idx] != 0:
-                idx + 1
-                r -= 1
-            if r == 0:
-                return (idx%len(N)) + 1
+                N += 1
+                if food_times[i] < m:
+                    m = food_times[i]
+        if N*m <= k and k >0 :
+            k -= N*m
+            for i in range(len(food_times)):
+                if food_times[i] != 0:
+                    food_times[i] -= m
+                    if food_times[i] == 0:
+                        N -= 1
+        else:
+            if N == 0:
+                return -1
+            q, r = divmod(k, N)
+            for i in range(len(food_times)):
+                if food_times[i] != 0:
+                    if r == 0:
+                        return i + 1
+                    else:
+                        r -= 1
+            
             
 print(solution([3,1,2], 5))
 

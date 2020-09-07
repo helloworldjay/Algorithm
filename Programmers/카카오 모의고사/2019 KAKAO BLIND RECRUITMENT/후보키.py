@@ -1,7 +1,6 @@
 # 1시간 20분
 from itertools import combinations
 # 최소성을 체크
-
 def minimum_check(test, result):
     #case는 result의 요소중 하나인 튜플
     for case in result:
@@ -12,7 +11,8 @@ def minimum_check(test, result):
             else:
                 break
     return True
-            
+
+
 def unique_check(lst):
     for i in range(len(lst)-1):
         for j in range(i+1, len(lst)):
@@ -24,7 +24,7 @@ def solution(relation):
     # 결과를 담을 리스트
     result = []
     column_num = len(relation[0])
-    columns = [i for i in range(column_num)]
+    columns = [i for i in range(column_num)] 
     combi_columns = []
     for i in range(column_num):
         combi_columns.extend(list(combinations(columns,i+1)))
