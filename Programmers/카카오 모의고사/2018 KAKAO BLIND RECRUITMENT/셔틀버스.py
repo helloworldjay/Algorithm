@@ -11,6 +11,7 @@ def solution(n, t, m, timetable):
     last_bus = start_bus + t*(n-1)
     # 체크할 m을 저장
     check = m
+    # 마지막 버스이후에 온 사람이 대기열 제일 첫번째면 그냥 막차시간에 타면 된다.
     if timetable[0] > last_bus:
         hh, mm = divmod(last_bus,60)
         return f"{hh:#02d}:{mm:#02d}"
@@ -48,6 +49,6 @@ def solution(n, t, m, timetable):
                 else :
                     hh, mm = divmod(start_bus,60)
                     return f"{hh:#02d}:{mm:#02d}"           
-    return timetable
+    
 
 print(solution(	2, 10, 2, ["09:10", "09:09", "08:00"]))
