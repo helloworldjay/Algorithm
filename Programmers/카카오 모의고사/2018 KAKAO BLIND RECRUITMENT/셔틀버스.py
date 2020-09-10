@@ -35,20 +35,27 @@ def solution(n, t, m, timetable):
             else:
                 # 아직 대기하는 사람이 있으면
                 if len(timetable) != 0 :
-                    # 좌석이 한자리 남은게 아니면
-                    if check != 1:
-                        # 대기하는 사람을 태운다.
-                        timetable.popleft()
-                        check -= 1
-                    # 좌석이 한자리 남았으면
-                    else:
-                        # 처음사람보다 1분은 먼저 와야한다.
-                        hh, mm = divmod(timetable[0]-1,60)
+                    # 대기열 1번째 사람이 버스시간보다 늦게온다면
+                    if timetable[0] > start_bus:
+                        # 버스 도착시간에 나온다.
+                        hh, mm = divmod(start_bus,60)
                         return f"{hh:#02d}:{mm:#02d}"
+                    # 대기열 1번째 사람이 버스시간보다 일찍 나온다면
+                    else:
+                        # 좌석이 한자리 남은게 아니면
+                        if check != 1:
+                            # 대기하는 사람을 태운다.
+                            timetable.popleft()
+                            check -= 1
+                        # 좌석이 한자리 남았으면
+                        else:
+                            # 처음사람보다 1분은 먼저 와야한다.
+                            hh, mm = divmod(timetable[0]-1,60)
+                            return f"{hh:#02d}:{mm:#02d}"
                 # 이제 대기하는 사람이 없으면
                 else :
                     hh, mm = divmod(start_bus,60)
                     return f"{hh:#02d}:{mm:#02d}"           
     
 
-print(solution(	2, 10, 2, ["09:10", "09:09", "08:00"]))
+print(solution(4,1,2,['09:00','09:00','09:01','09:01','09:03','09:40']))

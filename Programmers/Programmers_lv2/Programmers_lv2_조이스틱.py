@@ -1,43 +1,86 @@
-# 움직여야되는 횟수 찾는 함수
-def find_cnt(target):
-    return 26 - (ord(target) - 65) if ord(target) - 65 > 13 else (ord(target) - 65)
-
-def direction(idx, lst):
-    left = 0
-    right = 0
-    for i in range(1, len(lst)):
-        if lst[idx+i] != 0:
-            right = i
-            break
-    for i in range(1,len(lst)):
-        if lst[idx-i] != 0:
-            left = i
-            break
-    return -left if left < right else right
-
 def solution(name):
-    cnt = [0] * len(name)
-    for i in range(len(name)):
-        cnt[i] = find_cnt(name[i])
-    # 커서가 움직일 필요가 있는지 확인하기 위한 변수
-    total = sum(cnt)
-    # 커서의 위치 index
+    letter = "A" * len(name)
+    # 움직여야하는 횟수
+    cnt = 0
+    # 관찰할 위치 인덱스
     idx = 0
-    # 총 커서의 횟수를 담을 변수
-    result = 0
     while True:
-        result += cnt[idx]
-        total -= cnt[idx]
-        cnt[idx] = 0
-        if total <= 0:
-            break
-        # 커서를 얼마만큼 움직여야 하는지 정해주는 함수
-        move = direction(idx, cnt)
-        idx = (idx+move)+len(cnt) if (idx+move)<0 else ((idx+move)%(len(cnt)))
-        result += abs(move)
-    return result
+        change = ord(name[idx]) - ord("A")
+        # 반대로 돌 수 있다.
+        if change > 13 : change = 26 - change
+        # 글자를 변경해준다.
+        cnt += change
+        name = name[:idx] + "A" + name[idx+1:]
+        # print(cnt)
+        # 같아졌으면 종료
+        if letter == name:
+            return cnt
+        # 안 같기 때문에 좌 우를 결정해주어야 한다. 
+        left, right = 0, 0
+        ischeck_left, ischeck_right = True, True
+        for i in range(1, len(name)):
+            if name[(idx+i)%len(name)] != "A" and ischeck_right:
+                right = i
+                ischeck_right = False
+            if name[(idx-i)] != "A" and ischeck_left:
+                left = i
+                ischeck_left = False
+            if not ischeck_left and not ischeck_right:
+                break
+        # 오른쪽으로 더 많이 가야되면 왼쪽으로 가야한다.
+        if right > left:
+            idx = idx-left
+            cnt += left
+            if idx < 0: idx += len(name) 
+        # 왼쪽으로 더 많이 가야되면 오른쪽으로 가야한다.
+        else:
+            cnt += right
+            idx = (idx+right)%len(name)
 
-print(solution("CCAAC"))
+print(solution("JEROEN"))
+
+# 런타임에러 발생
+
+# # 움직여야되는 횟수 찾는 함수
+# def find_cnt(target):
+#     return 26 - (ord(target) - 65) if ord(target) - 65 > 13 else (ord(target) - 65)
+
+# def direction(idx, lst):
+#     left = 0
+#     right = 0
+#     for i in range(1, len(lst)):
+#         if lst[idx+i] != 0:
+#             right = i
+#             break
+#     for i in range(1,len(lst)):
+#         if lst[idx-i] != 0:
+#             left = i
+#             break
+#     return -left if left < right else right
+
+# def solution(name):
+#     cnt = [0] * len(name)
+#     for i in range(len(name)):
+#         cnt[i] = find_cnt(name[i])
+#     # 커서가 움직일 필요가 있는지 확인하기 위한 변수
+#     total = sum(cnt)
+#     # 커서의 위치 index
+#     idx = 0
+#     # 총 커서의 횟수를 담을 변수
+#     result = 0
+#     while True:
+#         result += cnt[idx]
+#         total -= cnt[idx]
+#         cnt[idx] = 0
+#         if total <= 0:
+#             break
+#         # 커서를 얼마만큼 움직여야 하는지 정해주는 함수
+#         move = direction(idx, cnt)
+#         idx = (idx+move)+len(cnt) if (idx+move)<0 else ((idx+move)%(len(cnt)))
+#         result += abs(move)
+#     return result
+
+
 
 
 
