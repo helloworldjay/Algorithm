@@ -1,31 +1,55 @@
-# 데이터와 포인터, 두가지를 저장할 공간을 만들기 위해 클래스를 이용하면 더 수월하다
-class Node :
-    # def __init__(self, data):
-    #     self.data = data
-    #     self.next = None # 주소를 저장하는 곳
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
     
-
-    def __init__(self, data, next = None):
-        self.data = data # 데이터 저장
-        self.next = next # 포인터(주소) 저장
-
+class NodeMgmt:
+    def __init__(self, data):
+        self.head = Node(data)
+    
     def add(self, data):
-        node = head
-        while node.next:
-            node = node.next
-        node.next = Node(data)
-
+        if self.head == '':
+            self.head = Node(data)
+        else:
+            node = self.head
+            while node.next:
+                node = node.next
+            node.next = Node(data)
     
-node1 = Node(1)
-node2 = Node(2)
-# node1의 주소 부분을 node2로 선언해준다. 
-node1.next = node2
-# 가장 앞의 노드는 반드시 알아야 하므로 head로 그 위치를 표시한다.
-head = node1
+    def desc(self):
+        node = self.head
+        while node:
+            print(node.data)
+            node = node.next
+    
+    def delete(self,data):
+        if self.head == '':
+            print("data가 없습니다.")
+            return
 
-for idx in range(1,10):
-    node1.add(idx)
-node = head
-while node.next:
-    print(node.data)
+        if self.head.data == data:
+            temp = self.head
+            self.head = self.head.next
+            del temp
+        else: # node의 head가 아닌 값을 삭제할 경우
+            node = self.head
+            # node의 다음값이 존재하는 동안
+            while node.next:
+                if node.next.data == data:
+                    temp = node.next
+                    node.next = temp.next
+                    del temp
+                else:
+                    node = node.next
+            
 
+
+linkedlist1 = NodeMgmt(0)
+# linkedlist1.add(1)
+# linkedlist1.add(2)
+# linkedlist1.add(3)
+
+
+for data in range(1, 10):
+    linkedlist1.add(data)
+linkedlist1.desc()
