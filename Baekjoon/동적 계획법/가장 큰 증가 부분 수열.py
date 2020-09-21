@@ -5,3 +5,5 @@ for i in range(1, n):
         if a[i] > a[j]:
             dp[i] = max(dp[j]+a[i], dp[i])
 print(max(dp))
+
+
