@@ -1,34 +1,41 @@
-# 0을 기준으로 사방이 전부 -1이면 결과는 -1이 나와야한다. -> 이렇게 할 필요 없이 모든 연산 후 0 이 있나를 보면 된다..
 from sys import stdin
 from collections import deque
-def bfs():
-    dx = [-1,1,0,0]
-    dy = [0,0,-1,1]
-    sec = 0 
-    while queue :
-        sec += 1
-        # 여기에서 그냥 큐를 꺼내는 것이 아니라 for문으로 주어진 큐만큼 반복을해서 sec를 고정시킨다..
-        for _ in range(len(queue)): # 이렇게 되면 sec 기준으로 그당시에 존재하는 큐는 모두 같은 sec를 갖는다.
-            [x,y] = queue.popleft()
-            for i in range(4):
-                xx = x + dx[i]
-                yy = y + dy[i]
-                if 0<=xx and xx<n and 0<=yy and yy<m:
-                    if farm[xx][yy] == 0 :
-                        queue.append([xx,yy]) # 큐에 추가
-                        farm[xx][yy] = 1 # 다시 계산하는 걸 방지하기위해 익은 것을 표현
-    return sec
-m, n = map(int, stdin.readline().strip().split()) # n 행, m 열
-farm, queue = [], deque()
-for i in range(n):
-    temp = list(map(int, stdin.readline().strip().split()))
-    for j in range(m):
-        if temp[j] == 1:
-            queue.append([i,j]) # 우선적으로 1인 값을 큐에 넣는다
-result = bfs()
-for i in range(n):
-    for j in range(m):
-        if farm[i][j] == 0 :
-            print(-1)
-            exit()
-print(result)
+input = stdin.readline
+M, N = map(int, input().split())
+farm = [ list(map(int, input().split())) for _ in range(N) ]
+visited = [[-1 for i in range(M)] for j in range(N)]
+cnt = 0 # 0의 개수
+sec = 0 # 익는데 걸리는 시간
+riping = deque()
+temp = [] # 같은 시간안에 처리되어야할 목록
+for i in range(N): # 0의 개수 구하기
+    for j in range(M):
+        if farm[i][j] == 0 : 
+            cnt += 1
+            visited[i][j] = 0
+        if farm[i][j] == 1 : temp.append((i,j))
+riping.append(temp)
+def bfs(x,y):
+    global cnt
+    dx, dy = [-1,1,0,0], [0,0,1,-1]
+    temp = []
+    for i in range(4):
+        xx,yy = x+dx[i], y+dy[i]
+        if 0<=xx<N and 0<=yy<M:
+            if visited[xx][yy] == 0 and farm[xx][yy] == 0:
+                visited[xx][yy] = 1
+                farm[xx][yy] = 1
+                temp.append((xx,yy))
+                cnt -= 1
+    return temp    
+while riping and cnt != 0:
+    check = riping.popleft()
+    sec += 1
+    temp = []
+    for i in range(len(check)):
+        x, y = check[i]
+        temp.extend(bfs(x,y))
+    if len(temp) !=0 : riping.append(temp)
+print(sec if cnt == 0 else -1)
+
+
