@@ -1,5 +1,15 @@
-from sys import stdin
-input = stdin.readline
-N = int(input())
-top = list(map(int, input().split()))
-result = [0 for _ in range(N)]
+import sys
+
+input = sys.stdin.readline
+n = int(input())
+tower_list = list(map(int, input().split()))
+stack = []
+result = [0] * n
+for i in range(n):
+    tower = tower_list[i]
+    while stack and tower_list[stack[-1]] < tower:
+        stack.pop()
+    if stack:
+        result[i] = stack[-1] + 1
+    stack.append(i)
+print(' '.join(map(str, result)))
