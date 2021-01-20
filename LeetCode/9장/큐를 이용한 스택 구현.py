@@ -7,28 +7,29 @@ class MyStack:
         """
         Initialize your data structure here.
         """
-        self.stack = deque()
+        self.queue = deque()
 
     def push(self, x: int) -> None:
         """
         Push element x onto stack.
         """
-        self.stack.insert(0, x)
-
+        self.queue.append(x)
+        for _ in range(len(self.queue)-1):
+            self.queue.append(self.queue.popleft())
     def pop(self) -> int:
         """
         Removes the element on top of the stack and returns that element.
         """
-        return self.stack.popleft()
+        return self.queue.popleft()
 
     def top(self) -> int:
         """
         Get the top element.
         """
-        return self.stack[0]
+        return self.queue[0]
 
     def empty(self) -> bool:
         """
         Returns whether the stack is empty.
         """
-        return len(self.stack) == 0
+        return len(self.queue) == 0
