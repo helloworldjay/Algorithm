@@ -1,40 +1,34 @@
 from sys import stdin
 from collections import deque
-
 input = stdin.readline
-isCheck = True
+s = input().strip()
 queue = deque()
 stack = []
-result = ''
-s = input().strip()
-for i in s:
-    if i == "<":
+result = ""
+isCheck = True
+for c in s:
+    if c == "<":
+        isCheck = False
+        queue.append(c)
         while stack:
             result += stack.pop()
-        queue.append(i)
-        isCheck = False
-
-    elif i == ">":
-        queue.append(i)
+    elif c == ">":
         isCheck = True
+        queue.append(c)
         while queue:
             result += queue.popleft()
-
-    elif i == " ":
+    elif c == " ":
         if isCheck:
             while stack:
                 result += stack.pop()
-            result += i
+            result += c
         else:
-            queue.append(i)
-            while queue:
-                result += queue.popleft()
-
+            queue.append(c)
     else:
         if isCheck:
-            stack.append(i)
+            stack.append(c)
         else:
-            queue.append(i)
+            queue.append(c)
 while stack:
     result += stack.pop()
 print(result)
