@@ -9,3 +9,5 @@ class Solution:
             if i%2==0:
                 max_num += nums[i]
         return max_num
+
+    # git test
