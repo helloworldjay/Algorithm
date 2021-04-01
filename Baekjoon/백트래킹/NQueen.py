@@ -1,22 +1,27 @@
 from sys import stdin
-def check(x):
-    for i in range(x):
-        if row[i] == row[x]:
-            return False
-        if abs(row[x]-row[i]) == x-i:
+
+input = stdin.readline
+N = int(input())
+cnt = 0
+placed = [-1 for i in range(N)]  # which col
+
+def is_possible(i, j):
+    for x in range(i):
+        if j == placed[x] or (abs(i - x) == abs(j - placed[x])):
             return False
     return True
 
-def dfs(x):
-    if x == n :
-        result += 1
-    else :
-        for i in range(x):
-            row[x] = i
-            if check(x):
-                dfs(x+1)
-n = int(stdin.readline())
-row = [0 for _ in range(n)] 
-result = 0
-dfs(0)
-print(result)
+def backtracking(row):
+    global cnt
+    if row == N:
+        cnt += 1
+    else:
+        for col in range(N):
+            if is_possible(row, col):
+                placed[row] = col
+                backtracking(row+1)
+                placed[row] = -1
+backtracking(0)
+print(cnt)
+
+
