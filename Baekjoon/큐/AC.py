@@ -8,7 +8,7 @@ for _ in range(T):
     function = input().strip()
     n = int(input())
     array = deque(list(input().lstrip('[').rstrip(']\n').split(',')))
-    if len(array) < function.count('D') or array[0] == '':
+    if len(array) < function.count('D') or (array[0] == '' and function.count('D') > 0):
         result.append("error")
         continue
     function = function.replace("RR", "")
