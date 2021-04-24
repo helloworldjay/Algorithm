@@ -1,5 +1,5 @@
 def solution(n, times):
-    slowest, latest = 1, max(times) * n
+    slowest, latest = min(times), max(times) * n
     sec = 0
     while slowest <= latest:
         mid = (slowest + latest) // 2
