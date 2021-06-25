@@ -12,6 +12,11 @@
 - K번째 수 - copyOfRange(), sort()
 - 완주하지 못한 선수 - map(containsKey, get, remove, foreach, keySet)
 
+3일차:
+
+- 프린터 - Collections.max(queue), Queue(LinkedList)
+- 기능 개발 - result.stream().mapToInt(i -> i).toArray(), 
+
 
 
 <br/>
